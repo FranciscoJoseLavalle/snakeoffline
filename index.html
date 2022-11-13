@@ -6,12 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./estilo.css">
 </head>
 
 <body>
     <canvas></canvas>
-    <p class="points">Puntos: 0</p>
+    <div class="interface">
+        <p class="points">Puntos: 0</p>
+        <div class="pauseContainer">
+            <p>Pulsa ESC para pausa o click acá: </p>
+            <button class="pause">Pausa</button>
+        </div>
+    </div>
     <div class="mobileControls">
         <button class="moveUp"></button>
         <div>
@@ -19,6 +28,9 @@
             <button class="moveDown"></button>
             <button class="moveRight"></button>
         </div>
+    </div>
+    <div class="recordContainer">
+        <p class="record">Récord: 0</p>
     </div>
     <script src="./game.js"></script>
 </body>

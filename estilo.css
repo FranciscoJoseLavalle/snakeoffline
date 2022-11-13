@@ -1,14 +1,64 @@
+/* <<<<<< GLOBALS >>>>>> */
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Press Start 2P', cursive;
 }
 
 body {
     text-align: center;
+    background-color: #ccc;
 }
+
 canvas {
     margin: .5rem 0;
+    border: dashed #666 .35rem;
+}
+
+/* <<<<<< GLOBALS >>>>>> */
+
+
+/* <<<<<< INTERFACE >>>>>> */
+.interface {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    width: 300px;
+    margin: auto;
+    text-align: left;
+}
+
+.points {
+    background-color: #113;
+    color: #fff;
+    padding: .5rem;
+}
+
+.pauseContainer {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.pause {
+    padding: .5rem;
+    border: none;
+    background-color: rgb(70, 116, 70);
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+/* <<<<<< INTERFACE >>>>>> */
+
+
+/* <<<<<< CONTROLS >>>>>> */
+.mobileControls {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: .5rem;
+    padding: .5rem 0;
 }
 
 .mobileControls button {
@@ -18,13 +68,30 @@ canvas {
     border: none;
     width: 5rem;
     height: 5rem;
+    background-color: transparent;
 }
+
 .moveUp {
     transform: rotate(180deg);
 }
+
 .moveLeft {
     transform: rotate(90deg);
 }
+
 .moveRight {
     transform: rotate(270deg);
 }
+
+/* <<<<<< CONTROLS >>>>>> */
+
+
+/* <<<<<< RÉCORD >>>>>> */
+.recordContainer {
+    width: 300px;
+    margin: auto;
+    text-align: left;
+    background-color: orange;
+    padding: .5rem;
+}
+/* <<<<<< RÉCORD >>>>>> */

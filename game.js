@@ -6,6 +6,12 @@ const ctx = canvas.getContext('2d');
 
 const puntos = document.querySelector('.points');
 let points = 0;
+const recordShow = document.querySelector('.record');
+let record = localStorage.getItem('record') || 0;
+
+document.addEventListener('DOMContentLoaded', () => {
+    recordShow.textContent = `Récord: ${record}`
+})
 
 const getSnake = ({ x = 145, y = 145 }) => ({
     x,
@@ -17,8 +23,8 @@ const getSnake = ({ x = 145, y = 145 }) => ({
     body: [
         { x: 140, y: 140 },
         { x: 150, y: 140 },
-        { x: 160, y: 140 },
-        { x: 170, y: 140 },
+        // { x: 160, y: 140 },
+        // { x: 170, y: 140 },
     ],
     draw() {
         ctx.strokeStyle = 'orange'
@@ -39,7 +45,6 @@ const getSnake = ({ x = 145, y = 145 }) => ({
                 }
                 this.body[i].x = this.body[i + 1].x
             }
-            console.log(this.body[i].x)
         }
     },
     moveDown() {
@@ -66,7 +71,6 @@ const getSnake = ({ x = 145, y = 145 }) => ({
                 }
                 this.body[i].x = this.body[i + 1].x
             }
-            console.log(this.body[i].x)
         }
     },
     moveRight() {
@@ -80,7 +84,6 @@ const getSnake = ({ x = 145, y = 145 }) => ({
                 }
                 this.body[i].x = this.body[i + 1].x
             }
-            console.log(this.body[i].x)
         }
     },
     contains(b) {
@@ -141,12 +144,20 @@ const update = () => {
 setInterval(() => {
     update()
 }, 100)
+
+// >>>>>>>>>>>>>> testing <<<<<<<<<<<<<<<<
+// setTimeout(() => {
+//     update()
+// }, 100)
 // requestAnimationFrame(update);
 
 const checkCollitions = () => {
     if (snake.contains(apple)) {
-        apple.x = Math.random() * (canvas.width - 20)
-        apple.y = Math.random() * (canvas.height - 20)
+        let x = Math.floor(Math.random() * (canvas.width - 20))
+        let y = Math.floor(Math.random() * (canvas.height - 20))
+
+        apple.x = x;
+        apple.y = y;
 
         snake.body.unshift({ x: snake.body[0].x, y: snake.body[0].y })
 
@@ -156,23 +167,28 @@ const checkCollitions = () => {
     if (snake.body[snake.body.length - 1].x > canvas.width - 10 || snake.body[snake.body.length - 1].x < 0 || snake.body[snake.body.length - 1].y > canvas.height - 10 || snake.body[snake.body.length - 1].y < 0) {
         endGame()
     }
-    // for (let i = 0; i < snake.body.length; i++) {
-    //     if (snake.body[i - 1] !== undefined) {
-    //         if (snake.body[snake.body.length - 1].x == snake.body[i - 1].x || snake.body[snake.body.length - 1].y == snake.body[i - 1].y) {
-    //             endGame()
-    //         }
-    //     }
-    // }
+    for (let i = 0; i < snake.body.length; i++) {
+        if (snake.body[i - 1] !== undefined && snake.body[i - 2] !== undefined) {
+            if (snake.body[snake.body.length - 1].x == snake.body[i - 1].x && snake.body[snake.body.length - 1].y == snake.body[i - 1].y) {
+                endGame()
+            }
+        }
+    }
 }
 
 const endGame = () => {
     snake.moving = 'no';
+    if (localStorage.getItem('record') < points) {
+        localStorage.setItem('record', points);
+        record = points
+        recordShow.textContent = `Récord: ${record}`
+    }
     setTimeout(() => {
         snake.body = [
             { x: 140, y: 140 },
             { x: 150, y: 140 },
-            { x: 160, y: 140 },
-            { x: 170, y: 140 },
+            // { x: 160, y: 140 },
+            // { x: 170, y: 140 },
         ]
 
         points = 0;
@@ -182,6 +198,9 @@ const endGame = () => {
 
 addEventListener('keydown', (e) => {
     switch (e.keyCode) {
+        case 27:
+            snake.moving = 'no';
+            break;
         case 38:
             snake.moveUp()
             snake.moving = 'up';
@@ -201,6 +220,9 @@ addEventListener('keydown', (e) => {
     }
 })
 
+document.querySelector('.pause').addEventListener('click', () => {
+    snake.moving = 'no';
+})
 document.querySelector('.moveUp').addEventListener('click', () => {
     snake.moveUp()
     snake.moving = 'up';
